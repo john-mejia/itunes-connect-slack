@@ -1,13 +1,26 @@
 version: 2
+
 jobs:
-  build:
+  check-itunes-status:
+    docker: 
+      - image: circleci/ruby:2.4.2-jessie-node
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - dirty-cache-v1
+      - run: sudo gem install fastlane 
+      - run: npm install @slack/client@3.16.0 --save
+      - run: npm install dirty --save
+      - run: npm install moment --save
+      - run: node poll-itc.js
+      - save_cache:
+          key: dirty-cache-v1
+          paths:
+            - "kvstore.db"
 
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-
-      - run:
-          name: Print the Current Time
-          command: date
+workflows:
+  version: 2
+  check-itunes-status:
+    jobs:
+      - check-itunes-status

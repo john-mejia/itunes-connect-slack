@@ -25,11 +25,10 @@ workflows:
   check-itunes-status:
     triggers:
       - schedule:
-          cron: "0 12 * * 1-5"
+          cron: "30 * * * *"
           filters:
             branches:
               only:
-                - master
-                - test        
+                - master    
     jobs:
       - check-itunes-status

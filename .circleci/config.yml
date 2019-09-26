@@ -21,6 +21,15 @@ jobs:
 
 workflows:
   version: 2
+
   check-itunes-status:
+    triggers:
+      - schedule:
+          cron: "0 12 * * 1-5"
+          filters:
+            branches:
+              only:
+                - master
+                - test        
     jobs:
       - check-itunes-status

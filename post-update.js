@@ -13,7 +13,7 @@ function postToSlack(appInfo, submissionStartDate) {
 
 	var channel = process.env.SLACK_CHANNEL_NAME;
 	if(!channel) {
-		channel = '#jmejia-test-channel';
+		channel = '#mobile-release';
 	}
 
 	client.chat.postMessage(channel, message, params, function(err, res) {

@@ -8,14 +8,14 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dirty-cache-v1
+            - m2- # don't use the checksum, so it always restores the cache
       - run: sudo gem install fastlane 
       - run: npm install @slack/client@3.16.0 --save
       - run: npm install dirty --save
       - run: npm install moment --save
       - run: node poll-itc.js
       - save_cache:
-          key: dirty-cache-v1
+          key: m2-{{ checksum "kvstore.db" }}
           paths:
             - "kvstore.db"
 
